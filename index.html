@@ -2,7 +2,7 @@
 <html lang="uz">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Kasallik va stressdan dori-darmonsiz xalos bo'lish</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -32,17 +32,11 @@ body::before {
   pointer-events: none; z-index: 0;
 }
 
-/* ====== TOPBAR ====== */
+/* TOPBAR */
 .topbar {
   position: relative; z-index: 10;
   display: flex; justify-content: space-between; align-items: center;
   padding: 24px 48px;
-}
-.topbar-eyebrow-wrap {
-  position: absolute; top: 0; left: 0; right: 0;
-  display: flex; align-items: center; justify-content: center;
-  pointer-events: none; z-index: 20;
-  height: 100%;
 }
 .badge {
   display: flex; flex-direction: column; align-items: center;
@@ -52,33 +46,36 @@ body::before {
 }
 .badge .label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: var(--gray); margin-bottom: 2px; }
 .badge .value { font-family: 'Bebas Neue', sans-serif; font-size: 40px; letter-spacing: 3px; line-height: 1; color: var(--white); }
-
-/* ====== HEADLINE SECTION ====== */
-.headline-section {
-  position: relative; z-index: 2;
-  text-align: center; padding: 20px 20px 0;
-}
 .eyebrow {
   font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-  color: var(--cyan); opacity: 0.8; margin-bottom: 16px;
+  color: var(--cyan); opacity: 0.8;
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  white-space: nowrap; z-index: 20;
+}
+
+/* HEADLINE */
+.headline-section {
+  position: relative; z-index: 2;
+  text-align: center; padding: 4px 14px 0;
 }
 .headline {
   font-family: 'Montserrat', sans-serif; font-weight: 900;
   font-size: clamp(44px, 6vw, 80px);
-  line-height: 1.08; color: var(--white);
+  line-height: 1.1; color: var(--white);
 }
 .headline em { font-style: italic; color: var(--cyan); }
 
-/* ====== SPEAKERS ROW ====== */
+/* SPEAKERS */
 .speakers-row {
-  position: relative; z-index: 2;
+  position: relative; z-index: 5;
   display: flex; justify-content: center; align-items: flex-end;
-  gap: 48px; padding: 0 40px;
-  margin-top: -20px;
+  gap: 40px; padding: 0 40px 70px;
+  margin-top: -55px;
 }
 .speaker-card {
   display: flex; flex-direction: column; align-items: center;
   flex: 1; max-width: 420px;
+  position: relative;
 }
 .speaker-card img {
   width: 100%; max-width: 400px;
@@ -92,36 +89,40 @@ body::before {
   background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12);
   border-radius: 8px; padding: 7px 20px;
   font-size: 14px; font-weight: 700; letter-spacing: 0.5px; color: var(--white);
+  position: relative; z-index: 10; text-align: center;
 }
 
-/* ====== SUBHEADLINE ====== */
+/* SUBHEADLINE */
 .subheadline-section {
-  position: relative; z-index: 2;
-  text-align: center; padding: 6px 20px 0;
+  position: relative; z-index: 20;
+  text-align: center; padding: 16px 20px 0;
+  margin-top: -65px;
+  background: linear-gradient(to bottom, transparent, var(--black) 30%);
 }
 .subheadline {
-  font-size: clamp(14px, 1.4vw, 17px); color: rgba(255,255,255,0.75);
-  font-weight: 500; line-height: 1.7; max-width: 600px; margin: 0 auto;
+  font-size: clamp(13px, 1.2vw, 16px); color: rgba(255,255,255,0.75);
+  font-weight: 500; line-height: 1.6; max-width: 680px; margin: 0 auto;
 }
 .subheadline strong { color: var(--cyan); font-weight: 800; }
 .stat-pill {
   display: inline-flex; align-items: center; gap: 8px;
   background: rgba(0,212,255,0.08); border: 1px solid rgba(0,212,255,0.25);
-  border-radius: 50px; padding: 8px 20px; margin-top: 4px;
+  border-radius: 50px; padding: 8px 20px; margin-top: 25px;
   font-size: 14px; font-weight: 700; color: var(--cyan);
 }
 
-/* ====== REGISTER SECTION ====== */
+/* REGISTER */
 .register-section {
   position: relative; z-index: 2;
   text-align: center; padding: 14px 20px 0;
+  display: flex; flex-direction: column; align-items: center;
 }
-.cta-wrap { display: inline-block; width: 100%; max-width: 440px; margin-top: -10px; }
+.cta-wrap { display: block; width: 100%; max-width: 560px; margin: 30px auto 0; }
 .cta-btn {
-  display: block; width: 100%; padding: 22px 32px;
+  display: block; width: 100%; padding: 26px 40px;
   background: linear-gradient(135deg, #b71c1c, #e02020, #ff4444);
   color: var(--white); font-family: 'Montserrat', sans-serif;
-  font-weight: 800; font-size: 18px; letter-spacing: 3px;
+  font-weight: 800; font-size: 22px; letter-spacing: 3px;
   text-transform: uppercase; border: none; border-radius: 12px; cursor: pointer;
   position: relative; overflow: hidden;
   box-shadow: 0 8px 32px rgba(224,32,32,0.5);
@@ -148,9 +149,9 @@ body::before {
 @keyframes shimmer { 0% { left: -100%; } 55%,100% { left: 160%; } }
 .cta-btn:hover { transform: translateY(-3px); }
 .cta-btn:active { transform: translateY(0); }
-.cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 12px; letter-spacing: 0.5px; }
+.cta-note { font-size: 12px; color: rgba(255,255,255,0.3); margin-top: 12px; letter-spacing: 0.5px; text-align: center; }
 
-/* ====== TIMER ====== */
+/* TIMER */
 .timer-section {
   position: relative; z-index: 2;
   text-align: center; padding: 12px 20px 0;
@@ -169,23 +170,26 @@ body::before {
 }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.7; } }
 
-/* ====== BENEFITS SECTION ====== */
+/* BENEFITS */
 .benefits-section {
   position: relative; z-index: 2;
-  padding: 16px 20px 40px;
-  max-width: 720px; margin: 0 auto;
+  padding: 24px 20px 50px;
+  max-width: 560px; margin: 0 auto; width: 100%;
+  box-sizing: border-box;
 }
 .benefits-title {
-  text-align: center; font-size: 13px; letter-spacing: 3px;
-  text-transform: uppercase; color: var(--gray); margin-bottom: 20px;
+  text-align: center; font-size: 16px; font-weight: 700; letter-spacing: 3px;
+  text-transform: uppercase; color: var(--white); margin-bottom: 20px;
 }
-.benefits { display: flex; flex-direction: column; gap: 12px; }
+.benefits { display: flex; flex-direction: column; gap: 10px; width: 100%; }
 .benefit-item {
-  display: flex; align-items: flex-start; gap: 14px;
+  display: flex; align-items: center; gap: 14px;
   background: rgba(255,255,255,0.03); border: 1px solid var(--border);
-  border-radius: 10px; padding: 16px 18px;
-  font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.6;
+  border-radius: 12px; padding: 18px 22px;
+  font-size: 15px; color: rgba(255,255,255,0.75); line-height: 1.5;
   transition: border-color 0.2s, background 0.2s;
+  min-height: 64px;
+  width: 100%; box-sizing: border-box;
 }
 .benefit-item:hover { border-color: rgba(0,212,255,0.25); background: rgba(0,212,255,0.04); }
 .benefit-num {
@@ -195,7 +199,7 @@ body::before {
   font-size: 12px; font-weight: 800; color: var(--cyan);
 }
 
-/* ====== STATS FOOTER ====== */
+/* STATS */
 .stats-bar {
   position: relative; z-index: 2;
   display: flex; justify-content: center;
@@ -208,7 +212,7 @@ body::before {
 .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 36px; color: var(--cyan); letter-spacing: 2px; }
 .stat-label { font-size: 11px; color: var(--gray); letter-spacing: 2px; text-transform: uppercase; margin-top: 2px; }
 
-/* ====== POPUP ====== */
+/* POPUP */
 .overlay {
   display: none; position: fixed; inset: 0;
   background: rgba(0,0,0,0.88); backdrop-filter: blur(8px);
@@ -246,7 +250,8 @@ body::before {
 .phone-input {
   flex:1; padding: 16px 14px; background: none; border: none;
   color: var(--white); font-family: 'Montserrat', sans-serif;
-  font-size: 15px; font-weight: 600; outline: none; letter-spacing: 1px;
+  font-size: 16px; font-weight: 600; outline: none; letter-spacing: 1px;
+  touch-action: manipulation;
 }
 .phone-input::placeholder { color: rgba(255,255,255,0.2); font-weight: 400; }
 .popup-btn {
@@ -265,45 +270,46 @@ body::before {
 .popup-success h3 { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
 .popup-success p { font-size: 13px; color: var(--gray); line-height: 1.6; }
 
-/* ====== ANIMATIONS ====== */
+/* ANIMATIONS */
 @keyframes fadeUp { from { opacity:0; transform:translateY(30px); } to { opacity:1; transform:translateY(0); } }
 @keyframes fadeIn  { from { opacity:0; } to { opacity:1; } }
-.topbar          { animation: fadeIn  0.5s 0.0s both; }
-.headline-section{ animation: fadeUp  0.7s 0.15s both; }
-.speakers-row    { animation: fadeIn  0.9s 0.3s both; }
+.topbar           { animation: fadeIn  0.5s 0.0s both; }
+.headline-section { animation: fadeUp  0.7s 0.15s both; }
+.speakers-row     { animation: fadeIn  0.9s 0.3s both; }
 .subheadline-section { animation: fadeUp 0.6s 0.5s both; }
-.register-section{ animation: fadeUp  0.6s 0.6s both; }
-.timer-section   { animation: fadeUp  0.6s 0.7s both; }
-.benefits-section{ animation: fadeUp  0.6s 0.8s both; }
+.register-section { animation: fadeUp  0.6s 0.6s both; }
+.timer-section    { animation: fadeUp  0.6s 0.7s both; }
+.benefits-section { animation: fadeUp  0.6s 0.8s both; }
 
-/* ====== RESPONSIVE ====== */
+/* RESPONSIVE */
 @media (max-width: 900px) {
   .topbar { padding: 16px 20px; }
   .badge .value { font-size: 30px; }
   .badge { padding: 8px 20px; }
-  .speakers-row { gap: 16px; padding: 0 16px; }
-  .speaker-card img { max-width: 100%; }
-  .headline { font-size: clamp(36px, 9vw, 56px); }
+  .speakers-row { gap: 16px; padding: 0 16px 50px; }
 }
 @media (max-width: 600px) {
+  .speaker-name {
+    position: relative; top: auto; left: auto; right: auto;
+    transform: none; margin-top: 6px; display: block; text-align: center;
+  }
   .topbar { padding: 12px 14px; }
   .badge { padding: 6px 14px; border-radius: 8px; }
   .badge .value { font-size: 24px; letter-spacing: 1px; }
   .badge .label { font-size: 9px; }
   .headline-section { padding: 12px 14px 0; }
   .headline { font-size: clamp(30px, 10vw, 44px); }
-  .speakers-row { gap: 8px; padding: 0 4px; margin-top: -10px; }
+  .speakers-row { gap: 8px; padding: 0 4px 50px; margin-top: -10px; }
   .speaker-card { max-width: 52%; }
   .speaker-card img { max-width: 100%; width: 100%; }
-  .speaker-name { font-size: 12px; padding: 5px 10px; }
   .subheadline-section { padding: 10px 14px 0; }
   .register-section { padding: 10px 14px 0; }
-  .timer-section { padding: 8px 14px 0; }
-  .benefits-section { padding: 12px 14px 30px; }
   .stats-bar { flex-wrap: wrap; gap: 12px; padding: 20px 16px; }
   .stat-item { border-right: none; padding: 0 12px; }
   .popup { padding: 28px 18px; }
   .timer-block { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 12px 16px; }
+  .benefits-section { padding: 24px 14px 40px; }
+  .cta-btn { font-size: 17px; padding: 20px 24px; }
 }
 </style>
 </head>
@@ -315,9 +321,7 @@ body::before {
     <span class="label">Sana</span>
     <span class="value">25-MART</span>
   </div>
-  <div class="topbar-eyebrow-wrap">
-    <div class="eyebrow">Bepul Vebinar</div>
-  </div>
+  <div class="eyebrow">Bepul Vebinar</div>
   <div class="badge">
     <span class="label">Vaqt</span>
     <span class="value">20:00</span>
@@ -363,13 +367,6 @@ body::before {
   </div>
 </div>
 
-<!-- TIMER -->
-<div class="timer-section">
-  <div class="timer-block">
-    <span class="timer-icon">⏳</span>
-    <span class="timer-text">Ro'yxatdan o'tishga qolgan vaqt:</span>
-    <span class="timer-count" id="timerDisplay">10:00</span>
-  </div>
 </div>
 
 <!-- BENEFITS -->
@@ -438,19 +435,6 @@ body::before {
 </div>
 
 <script>
-// TIMER
-let totalSeconds = 10 * 60;
-const timerEl = document.getElementById('timerDisplay');
-function updateTimer() {
-  if (totalSeconds <= 0) { timerEl.textContent = '00:00'; timerEl.style.color = '#ff4444'; return; }
-  totalSeconds--;
-  const m = Math.floor(totalSeconds / 60).toString().padStart(2,'0');
-  const s = (totalSeconds % 60).toString().padStart(2,'0');
-  timerEl.textContent = m + ':' + s;
-  if (totalSeconds <= 60) timerEl.style.color = '#ff4444';
-  setTimeout(updateTimer, 1000);
-}
-updateTimer();
 
 // POPUP
 function openPopup() {
@@ -465,39 +449,31 @@ function closePopup() {
 function handleOverlayClick(e) { if (e.target === document.getElementById('overlay')) closePopup(); }
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
 
-// PHONE
 function onlyNumbers(e) { return /[0-9]/.test(e.key); }
 function formatPhone(input) { input.value = input.value.replace(/\D/g,'').slice(0,9); }
 function handleEnter(e) { if (e.key === 'Enter') submitPhone(); }
 
-// SUBMIT
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4xk4LkfbY8Eeo1yWAJ3vDUM6WNw5OsdzQwMuH34Xwtre7ydyDDju_7mtvpxFxil9n/exec';
 const TG_LINK = 'https://t.me/+v0-7sA8Mb1hhNTky';
 
-async function submitPhone() {
+function submitPhone() {
   const input = document.getElementById('phoneInput');
   const errorEl = document.getElementById('phoneError');
   const btn = document.getElementById('submitBtn');
   const phone = input.value.replace(/\D/g,'');
   if (phone.length !== 9) { errorEl.style.display = 'block'; input.focus(); return; }
   errorEl.style.display = 'none';
-  btn.disabled = true; btn.textContent = 'Saqlanmoqda...';
+  btn.disabled = true;
+
   const fullPhone = '+998' + phone;
-  try {
-    const dateStr = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
-    await fetch(APPS_SCRIPT_URL + '?phone=' + encodeURIComponent(fullPhone) + '&date=' + encodeURIComponent(dateStr), {
-      method: 'GET',
-      mode: 'no-cors'
-    });
-  } catch(e) { console.warn('Sheets error:', e); }
-  // Open TG immediately (before async - avoids mobile popup blocker)
-  window.location.href = TG_LINK;
+  const dateStr = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
+
+  fetch(APPS_SCRIPT_URL + '?phone=' + encodeURIComponent(fullPhone) + '&date=' + encodeURIComponent(dateStr), {
+    method: 'GET', mode: 'no-cors'
+  }).catch(e => console.warn('Sheets error:', e));
+
   setTimeout(() => {
-    closePopup();
-    document.getElementById('formSection').style.display = 'block';
-    document.getElementById('successSection').style.display = 'none';
-    btn.disabled = false; btn.textContent = 'Bepul Qatnashish →';
-    input.value = '';
+    window.location.href = TG_LINK;
   }, 1000);
 }
 </script>
