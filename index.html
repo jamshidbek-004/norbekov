@@ -482,10 +482,9 @@ async function submitPhone() {
       mode: 'no-cors'
     });
   } catch(e) { console.warn('Sheets error:', e); }
-  document.getElementById('formSection').style.display = 'none';
-  document.getElementById('successSection').style.display = 'block';
+  // Open TG immediately (before async - avoids mobile popup blocker)
+  window.location.href = TG_LINK;
   setTimeout(() => {
-    window.open(TG_LINK, '_blank');
     closePopup();
     document.getElementById('formSection').style.display = 'block';
     document.getElementById('successSection').style.display = 'none';
