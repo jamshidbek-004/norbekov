@@ -299,17 +299,23 @@ body::before {
   .badge .label { font-size: 9px; }
   .headline-section { padding: 12px 14px 0; }
   .headline { font-size: clamp(30px, 10vw, 44px); }
-  .speakers-row { gap: 8px; padding: 0 4px 50px; margin-top: -10px; }
-  .speaker-card { max-width: 52%; }
+  .speakers-row {
+    gap: 8px; padding: 0 4px 0; margin-top: -10px;
+  }
+  .speaker-card { max-width: 70%; }
   .speaker-card img { max-width: 100%; width: 100%; }
-  .subheadline-section { padding: 10px 14px 0; }
-  .register-section { padding: 10px 14px 0; }
+  /* Mobile: remove negative margin on subheadline, give real space */
+  .subheadline-section {
+    padding: 24px 16px 0 !important;
+    margin-top: 0 !important;
+    background: none !important;
+  }
+  .register-section { padding: 16px 14px 0; }
+  .cta-btn { font-size: 17px; padding: 22px 24px; }
   .stats-bar { flex-wrap: wrap; gap: 12px; padding: 20px 16px; }
   .stat-item { border-right: none; padding: 0 12px; }
   .popup { padding: 28px 18px; }
-  .timer-block { flex-wrap: wrap; justify-content: center; gap: 8px; padding: 12px 16px; }
   .benefits-section { padding: 24px 14px 40px; }
-  .cta-btn { font-size: 17px; padding: 20px 24px; }
 }
 </style>
 </head>
