@@ -389,10 +389,10 @@ body::before {
 <!-- SUBHEADLINE -->
 <div class="subheadline-section">
   <p class="subheadline">
-    <em><strong>Norbekov sistemasi</strong> asosida 3,5 milliondan ortiq insonlarga yordam berilgan!</em>
+    <em><strong>Norbekov sistemasi</strong> asosida 3,5 milliondan ortiq inson sog'lig'ini tikladi!</em>
   </p>
-  <div class="stat-pill">
-    🏆 &nbsp; 3,5 M+ insonga yordam berilgan
+  <div class="stat-pill" id="timerPill">
+    ⏳ &nbsp; Ro'yxatdan o'tishga qolgan vaqt: <span id="timerDisplay" style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;margin-left:4px;">02:00</span>
   </div>
 </div>
 
@@ -411,7 +411,7 @@ body::before {
   <div class="benefits">
     <div class="benefit-item">
       <div class="benefit-num">1</div>
-      <span>Kasallik va stressni qaysi kasalliklar keltirib chiqarishini bilib olasiz</span>
+      <span>Kasallik va stressning kelib chiqish sabablari</span>
     </div>
     <div class="benefit-item">
       <div class="benefit-num">2</div>
@@ -470,76 +470,64 @@ body::before {
   </div>
 </div>
 
-<!-- THANK YOU PAGE -->
-<div id="thankYouPage" style="display:none; position:fixed; inset:0; z-index:2000; background:#f5efe6; flex-direction:column; align-items:center; justify-content:center; padding:32px;">
-  <div style="max-width:480px; width:100%; text-align:center;">
-    <div style="font-size:56px; margin-bottom:24px;">🎉</div>
-    <h2 style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:clamp(22px,5vw,32px); color:#1a1008; line-height:1.3; margin-bottom:16px;">
-      Bepul qatnashish uchun<br>Yopiq telegram kanalimizga qo'shiling
-    </h2>
-    <p style="font-family:'Montserrat',sans-serif; font-size:15px; color:#7a6a5a; margin-bottom:36px; line-height:1.6;">
-      Vebinar haqida barcha ma'lumotlar shu kanalda e'lon qilinadi
-    </p>
-    <a href="https://t.me/+O0bv-mGnxpxhYTUy" target="_blank"
-      style="display:block; width:100%; padding:22px 32px;
-      background:linear-gradient(135deg,#b71c1c,#e02020,#ff4444);
-      color:#ffffff; font-family:'Montserrat',sans-serif;
-      font-weight:800; font-size:18px; letter-spacing:2px;
-      text-transform:uppercase; text-decoration:none;
-      border-radius:12px; cursor:pointer;
-      box-shadow:0 8px 32px rgba(224,32,32,0.4);
-      position:relative; overflow:hidden;">
-      Yopiq kanalga qo'shilish →
-    </a>
-  </div>
-</div>
 
 <script>
+// TIMER - 2 daqiqa
+let totalSeconds = 2 * 60;
+function updateTimer() {
+  const el = document.getElementById('timerDisplay');
+  if (!el) { setTimeout(updateTimer, 1000); return; }
+  if (totalSeconds <= 0) { el.textContent = '00:00'; el.style.color = '#e02020'; return; }
+  totalSeconds--;
+  const m = String(Math.floor(totalSeconds/60)).padStart(2,'0');
+  const s = String(totalSeconds%60).padStart(2,'0');
+  el.textContent = m+':'+s;
+  if (totalSeconds <= 30) el.style.color = '#e02020';
+  setTimeout(updateTimer, 1000);
+}
+setTimeout(updateTimer, 1000);
 
 // POPUP
 function openPopup() {
   document.getElementById('overlay').classList.add('active');
   document.body.style.overflow = 'hidden';
-  setTimeout(() => document.getElementById('phoneInput').focus(), 300);
+  setTimeout(function(){ document.getElementById('phoneInput').focus(); }, 300);
 }
 function closePopup() {
   document.getElementById('overlay').classList.remove('active');
   document.body.style.overflow = '';
 }
-function handleOverlayClick(e) { if (e.target === document.getElementById('overlay')) closePopup(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closePopup(); });
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('overlay')) closePopup();
+}
+document.addEventListener('keydown', function(e){ if(e.key==='Escape') closePopup(); });
 
 function onlyNumbers(e) { return /[0-9]/.test(e.key); }
 function formatPhone(input) { input.value = input.value.replace(/\D/g,'').slice(0,9); }
-function handleEnter(e) { if (e.key === 'Enter') submitPhone(); }
+function handleEnter(e) { if(e.key==='Enter') submitPhone(); }
 
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4xk4LkfbY8Eeo1yWAJ3vDUM6WNw5OsdzQwMuH34Xwtre7ydyDDju_7mtvpxFxil9n/exec';
-const TG_LINK = 'https://t.me/+v0-7sA8Mb1hhNTky';
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby4xk4LkfbY8Eeo1yWAJ3vDUM6WNw5OsdzQwMuH34Xwtre7ydyDDju_7mtvpxFxil9n/exec';
+var TG_LINK = 'https://kanal-two.vercel.app/';
 
 function submitPhone() {
-  const input = document.getElementById('phoneInput');
-  const errorEl = document.getElementById('phoneError');
-  const btn = document.getElementById('submitBtn');
-  const phone = input.value.replace(/\D/g,'');
+  var input = document.getElementById('phoneInput');
+  var errorEl = document.getElementById('phoneError');
+  var btn = document.getElementById('submitBtn');
+  var phone = input.value.replace(/\D/g,'');
   if (phone.length !== 9) { errorEl.style.display = 'block'; input.focus(); return; }
   errorEl.style.display = 'none';
   btn.disabled = true;
 
-  const fullPhone = '+998' + phone;
-  const dateStr = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
+  var fullPhone = '+998' + phone;
+  var dateStr = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
 
-  // Send to Sheets in background
   fetch(APPS_SCRIPT_URL + '?phone=' + encodeURIComponent(fullPhone) + '&date=' + encodeURIComponent(dateStr), {
     method: 'GET', mode: 'no-cors'
-  }).catch(e => console.warn('Sheets error:', e));
+  }).catch(function(e){ console.warn('Sheets error:', e); });
 
-  // Close popup and show thank you page
-  setTimeout(() => {
-    closePopup();
-    const page = document.getElementById('thankYouPage');
-    page.style.display = 'flex';
-    document.body.style.overflow = 'hidden';
-  }, 500);
+  setTimeout(function(){
+    window.location.href = TG_LINK;
+  }, 100);
 }
 </script>
 </body>
