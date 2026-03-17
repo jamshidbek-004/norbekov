@@ -75,7 +75,7 @@ body::before {
 .speakers-row {
   position: relative; z-index: 5;
   display: flex; justify-content: center; align-items: flex-end;
-  gap: 40px; padding: 0 40px 70px;
+  gap: 40px; padding: 0 40px 0;
   margin-top: -55px;
 }
 .speaker-card {
@@ -102,9 +102,9 @@ body::before {
 /* SUBHEADLINE */
 .subheadline-section {
   position: relative; z-index: 20;
-  text-align: center; padding: 16px 20px 0;
-  margin-top: -65px;
-  background: linear-gradient(to bottom, transparent, #f5efe6 30%);
+  text-align: center; padding: 8px 20px 0;
+  margin-top: 0;
+  background: none;
 }
 .subheadline {
   font-size: clamp(13px, 1.2vw, 16px); color: #5a4a3a;
@@ -310,6 +310,7 @@ body::before {
   .speakers-row {
     gap: 8px; padding: 0 4px 0; margin-top: -10px;
   }
+  .subheadline-section { padding: 6px 14px 0 !important; margin-top: 0 !important; background: none !important; }
   .speaker-card { max-width: 70%; }
   .speaker-card img { max-width: 100%; width: 100%; }
   /* Mobile: remove negative margin on subheadline, give real space */
@@ -367,7 +368,7 @@ body::before {
 <!-- SUBHEADLINE -->
 <div class="subheadline-section">
   <p class="subheadline">
-    <strong>Norbekov sistemasi</strong> asosida 3,5 milliondan ortiq insonlarga yordam berilgan!
+    <em><strong>Norbekov sistemasi</strong> asosida 3,5 milliondan ortiq insonlarga yordam berilgan!</em>
   </p>
   <div class="stat-pill">
     🏆 &nbsp; 3,5 M+ insonga yordam berilgan
