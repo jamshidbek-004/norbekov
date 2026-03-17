@@ -3,6 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="facebook-domain-verification" content="eqf2c4gnowrpc91swo94ln5qz5l4hl" />
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '661236722447252');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=661236722447252&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
 <title>Kasallik va stressdan dori-darmonsiz xalos bo'lish</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
@@ -452,6 +470,30 @@ body::before {
   </div>
 </div>
 
+<!-- THANK YOU PAGE -->
+<div id="thankYouPage" style="display:none; position:fixed; inset:0; z-index:2000; background:#f5efe6; flex-direction:column; align-items:center; justify-content:center; padding:32px;">
+  <div style="max-width:480px; width:100%; text-align:center;">
+    <div style="font-size:56px; margin-bottom:24px;">🎉</div>
+    <h2 style="font-family:'Montserrat',sans-serif; font-weight:900; font-size:clamp(22px,5vw,32px); color:#1a1008; line-height:1.3; margin-bottom:16px;">
+      Bepul qatnashish uchun<br>Yopiq telegram kanalimizga qo'shiling
+    </h2>
+    <p style="font-family:'Montserrat',sans-serif; font-size:15px; color:#7a6a5a; margin-bottom:36px; line-height:1.6;">
+      Vebinar haqida barcha ma'lumotlar shu kanalda e'lon qilinadi
+    </p>
+    <a href="https://t.me/+O0bv-mGnxpxhYTUy" target="_blank"
+      style="display:block; width:100%; padding:22px 32px;
+      background:linear-gradient(135deg,#b71c1c,#e02020,#ff4444);
+      color:#ffffff; font-family:'Montserrat',sans-serif;
+      font-weight:800; font-size:18px; letter-spacing:2px;
+      text-transform:uppercase; text-decoration:none;
+      border-radius:12px; cursor:pointer;
+      box-shadow:0 8px 32px rgba(224,32,32,0.4);
+      position:relative; overflow:hidden;">
+      Yopiq kanalga qo'shilish →
+    </a>
+  </div>
+</div>
+
 <script>
 
 // POPUP
@@ -486,13 +528,18 @@ function submitPhone() {
   const fullPhone = '+998' + phone;
   const dateStr = new Date().toLocaleString('uz-UZ', { timeZone: 'Asia/Tashkent' });
 
+  // Send to Sheets in background
   fetch(APPS_SCRIPT_URL + '?phone=' + encodeURIComponent(fullPhone) + '&date=' + encodeURIComponent(dateStr), {
     method: 'GET', mode: 'no-cors'
   }).catch(e => console.warn('Sheets error:', e));
 
+  // Close popup and show thank you page
   setTimeout(() => {
-    window.location.href = TG_LINK;
-  }, 1000);
+    closePopup();
+    const page = document.getElementById('thankYouPage');
+    page.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }, 500);
 }
 </script>
 </body>
