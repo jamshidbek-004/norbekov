@@ -207,3 +207,13 @@ if(countEls.length){
  },{threshold:0.5});
  countEls.forEach(el=>statsObserver.observe(el));
 }
+
+/* Mobil pastki (doimiy) "Ro'yxatdan o'tish" paneli — hero bo'limida ko'rinmaydi, undan chiqgandan keyin paydo bo'ladi */
+const heroSection=document.querySelector('.hero');
+const mobileCta=document.querySelector('.mobile-cta');
+if(heroSection&&mobileCta&&'IntersectionObserver' in window){
+ const heroObserver=new IntersectionObserver(([entry])=>{
+  mobileCta.classList.toggle('visible',!entry.isIntersecting);
+ },{threshold:0});
+ heroObserver.observe(heroSection);
+}
