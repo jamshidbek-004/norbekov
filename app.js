@@ -217,3 +217,37 @@ if(heroSection&&mobileCta&&'IntersectionObserver' in window){
  },{threshold:0});
  heroObserver.observe(heroSection);
 }
+
+/* Saytning hero'dan pastki qismidagi matn va bloklarga silliq scroll-animatsiya */
+if(!reduceMotion&&'IntersectionObserver' in window){
+ const revealSelector=[
+  '.methodology-heading','.methodology-stats>li',
+  '.section-heading','.section-lead',
+  '.audience-grid article','.intro-note',
+  '.program-takeaways>div','.program-visual','.day','.program-next',
+  '.mentor',
+  '.gallery-item','.gallery-footnote','.venue',
+  '.price-period','.plan','.pricing-note',
+  '.faq-list details',
+  '.closing-inner>h2','.closing-inner>p','.closing-inner>.button','.closing-meta',
+  '.footer-top>p','.footer-top>a'
+ ].join(',');
+ const revealEls=Array.from(document.querySelectorAll(revealSelector));
+ const groupCounters=new Map();
+ revealEls.forEach(el=>{
+  el.classList.add('reveal');
+  const parent=el.parentElement;
+  const n=groupCounters.get(parent)||0;
+  groupCounters.set(parent,n+1);
+  el.style.transitionDelay=Math.min(n,5)*70+'ms';
+ });
+ const revealObserver=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+   if(entry.isIntersecting){
+    entry.target.classList.add('is-visible');
+    revealObserver.unobserve(entry.target);
+   }
+  });
+ },{threshold:0.12,rootMargin:'0px 0px -60px 0px'});
+ revealEls.forEach(el=>revealObserver.observe(el));
+}
