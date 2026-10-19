@@ -145,7 +145,7 @@ registrationForm.addEventListener('submit',async event=>{
  const price=plan.prices[payload.period];
  try{
   if(!payload.website){
-   const leadPayload={name:payload.name,phone:payload.phone,email:'',message:`Tarif: ${plan.name} (${periods[payload.period]})`,source:'landing-page',price:price===null?undefined:price};
+   const leadPayload={name:payload.name,phone:payload.phone,message:`Tarif: ${plan.name} (${periods[payload.period]})`,source:'landing-page',price:price===null?undefined:price};
    const leadHeaders={'Content-Type':'application/json'};
    if(LEAD_WEBHOOK_KEY)leadHeaders['X-API-Key']=LEAD_WEBHOOK_KEY;
    const response=await fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),signal:AbortSignal.timeout(15000)});
