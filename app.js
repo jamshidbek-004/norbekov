@@ -145,11 +145,16 @@ registrationForm.addEventListener('submit',async event=>{
  const price=plan.prices[payload.period];
  try{
   if(!payload.website){
-   const leadPayload={name:payload.name,phone:payload.phone,message:`Tarif: ${plan.name} (${periods[payload.period]})`,source:'landing-page',price:price===null?undefined:price};
+   const leadPayload={name:payload.name,phone:payload.phone,email:'',message:`Tarif: ${plan.name} (${periods[payload.period]})`,source:'landing-page',price:price===null?undefined:price};
    const leadHeaders={'Content-Type':'application/json'};
    if(LEAD_WEBHOOK_KEY)leadHeaders['X-API-Key']=LEAD_WEBHOOK_KEY;
    const response=await fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),signal:AbortSignal.timeout(15000)});
-   if(!response.ok)throw new Error('Arizangiz yuborilganini tasdiqlay olmadik. Iltimos, birozdan so‘ng qayta urinib ko‘ring.');
+   if(!response.ok){
+    let bodyText='';
+    try{bodyText=await response.text();}catch{}
+    console.error('[CRM webhook] status:',response.status,'body:',bodyText);
+    throw new Error('Arizangiz yuborilganini tasdiqlay olmadik. Iltimos, birozdan so‘ng qayta urinib ko‘ring.');
+   }
   }
   const confirmation={plan:plan.name,amount:price,period:periods[payload.period],confirmedAt:Date.now()};
   try{sessionStorage.setItem('norbekov-registration',JSON.stringify(confirmation));}catch{}
