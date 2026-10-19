@@ -12,3 +12,21 @@ if(confirmation&&allowedPlans.includes(confirmation.plan)&&Number.isFinite(confi
  if(Number.isFinite(confirmation.amount)&&confirmation.amount>0){document.getElementById('confirmation-price').textContent=String(confirmation.amount).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' so‘m · '+confirmation.period;}
  document.getElementById('thank-you-note').innerHTML='Ariza to‘lov yoki joy band qilinganini anglatmaydi.<br>Savolingiz bo‘lsa: <a href="tel:+998550557677">+998 55 055 76 77</a>';
 }
+
+/* 5 soniyadan so'ng Telegram kanaliga avtomatik o'tish */
+const TELEGRAM_CHANNEL_URL='https://t.me/Mirzakarim_Norbekovv';
+const redirectNote=document.getElementById('telegram-redirect-note');
+let secondsLeft=5;
+function updateRedirectNote(){
+ if(redirectNote)redirectNote.textContent=secondsLeft+' soniyadan so‘ng Telegram kanaliga avtomatik o‘tasiz…';
+}
+updateRedirectNote();
+const redirectTimer=setInterval(()=>{
+ secondsLeft-=1;
+ if(secondsLeft<=0){
+  clearInterval(redirectTimer);
+  window.location.href=TELEGRAM_CHANNEL_URL;
+ }else{
+  updateRedirectNote();
+ }
+},1000);
