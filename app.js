@@ -1,7 +1,7 @@
 'use strict';
 /* CRM lead webhook (inexbrand) — API kaliti bo'lsa shu yerga qo'ying, bo'lmasa bo'sh qoldiring ('') — shunda header yuborilmaydi */
 const LEAD_WEBHOOK_URL='https://framer-integration.inexbrand.uz/api/webhook/lead';
-const LEAD_WEBHOOK_KEY='';
+const LEAD_WEBHOOK_KEY='1f67544d-7986-495a-bc34-a3062046e7bb';
 const periods = ['30-noyabrgacha', '1–15-dekabr', '16-dekabrdan boshlab'];
 const plans = [
   {name:'Onlayn',className:'online',label:'MASOFADAN ISHTIROK',subtitle:'Ustozlar bilan uch kun — sizga qulay joydan.',prices:[1900000,2200000,2500000],months:1,features:['3 kunlik intensivda onlayn ishtirok','Networking uchun yopiq guruh','Sog‘lomlashtirish kursiga 50% chegirma','Intensiv videoyozuvlari — 14 kun']},
