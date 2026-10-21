@@ -150,19 +150,16 @@ registrationForm.addEventListener('submit',async event=>{
    if(LEAD_WEBHOOK_KEY)leadHeaders['X-API-Key']=LEAD_WEBHOOK_KEY;
    /* CRM webhooki ba'zan sekin yoki vaqtincha 503 qaytarsa ham, lead baribir
       amoCRM'ga yetib borishi mumkin (server orqa fonda ishlashni davom ettiradi).
-      Shu sababli webhook javobi muvaffaqiyatsiz yoki sekin bo'lsa ham, foydalanuvchi
-      tajribasini bloklamaymiz - xatoni faqat konsolga yozamiz va "Rahmat" sahifasiga
-      baribir o'tkazamiz. */
-   try{
-    const response=await fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),signal:AbortSignal.timeout(15000)});
-    if(!response.ok){
-     let bodyText='';
-     try{bodyText=await response.text();}catch{}
-     console.error('[CRM webhook] status:',response.status,'body:',bodyText);
-    }
-   }catch(webhookError){
-    console.error('[CRM webhook] network error:',webhookError.name,webhookError.message);
-   }
+      Shuning uchun webhook javobini kutib o'tirmaymiz - so'rovni "fire and forget"
+      tarzida jo'natamiz (keepalive bilan, sahifa /rahmat ga o'tsa ham so'rov
+      to'xtab qolmasin uchun) va foydalanuvchini darhol "Rahmat" sahifasiga o'tkazamiz. */
+   fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),keepalive:true})
+    .then(response=>{
+     if(!response.ok){
+      response.text().then(bodyText=>console.error('[CRM webhook] status:',response.status,'body:',bodyText)).catch(()=>console.error('[CRM webhook] status:',response.status));
+     }
+    })
+    .catch(webhookError=>console.error('[CRM webhook] network error:',webhookError.name,webhookError.message));
   }
   const confirmation={plan:plan.name,amount:price,period:periods[payload.period],confirmedAt:Date.now()};
   try{sessionStorage.setItem('norbekov-registration',JSON.stringify(confirmation));}catch{}
