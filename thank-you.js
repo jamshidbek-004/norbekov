@@ -16,7 +16,7 @@ if(confirmation&&allowedPlans.includes(confirmation.plan)&&Number.isFinite(confi
 /* 5 soniyadan so'ng Telegram kanaliga avtomatik o'tish */
 const TELEGRAM_CHANNEL_URL='https://t.me/Mirzakarim_Norbekovv';
 const redirectNote=document.getElementById('telegram-redirect-note');
-let secondsLeft=20;
+let secondsLeft=7;
 function updateRedirectNote(){
  if(redirectNote)redirectNote.textContent=secondsLeft+' soniyadan so‘ng Telegram kanaliga avtomatik o‘tasiz…';
 }
