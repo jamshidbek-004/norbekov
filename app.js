@@ -148,12 +148,20 @@ registrationForm.addEventListener('submit',async event=>{
    const leadPayload={name:payload.name,phone:payload.phone,message:`Tarif: ${plan.name} (${periods[payload.period]})`,source:'landing-page',price:price===null?undefined:price};
    const leadHeaders={'Content-Type':'application/json'};
    if(LEAD_WEBHOOK_KEY)leadHeaders['X-API-Key']=LEAD_WEBHOOK_KEY;
-   const response=await fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),signal:AbortSignal.timeout(15000)});
-   if(!response.ok){
-    let bodyText='';
-    try{bodyText=await response.text();}catch{}
-    console.error('[CRM webhook] status:',response.status,'body:',bodyText);
-    throw new Error('Arizangiz yuborilganini tasdiqlay olmadik. Iltimos, birozdan so‘ng qayta urinib ko‘ring.');
+   /* CRM webhooki ba'zan sekin yoki vaqtincha 503 qaytarsa ham, lead baribir
+      amoCRM'ga yetib borishi mumkin (server orqa fonda ishlashni davom ettiradi).
+      Shu sababli webhook javobi muvaffaqiyatsiz yoki sekin bo'lsa ham, foydalanuvchi
+      tajribasini bloklamaymiz - xatoni faqat konsolga yozamiz va "Rahmat" sahifasiga
+      baribir o'tkazamiz. */
+   try{
+    const response=await fetch(LEAD_WEBHOOK_URL,{method:'POST',headers:leadHeaders,body:JSON.stringify(leadPayload),signal:AbortSignal.timeout(15000)});
+    if(!response.ok){
+     let bodyText='';
+     try{bodyText=await response.text();}catch{}
+     console.error('[CRM webhook] status:',response.status,'body:',bodyText);
+    }
+   }catch(webhookError){
+    console.error('[CRM webhook] network error:',webhookError.name,webhookError.message);
    }
   }
   const confirmation={plan:plan.name,amount:price,period:periods[payload.period],confirmedAt:Date.now()};
