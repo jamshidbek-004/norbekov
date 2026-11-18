@@ -9,7 +9,6 @@ if(confirmation&&allowedPlans.includes(confirmation.plan)&&Number.isFinite(confi
  document.getElementById('thank-you-description').textContent='Biznes psixologiyasi intensiviga qiziqishingiz uchun rahmat. Menejerimiz tanlagan tarifingiz va ishtirok tafsilotlari bo‘yicha siz bilan bog‘lanadi.';
  document.getElementById('confirmation-plan').hidden=false;
  document.getElementById('confirmation-plan-name').textContent=confirmation.plan;
- if(Number.isFinite(confirmation.amount)&&confirmation.amount>0){document.getElementById('confirmation-price').textContent=String(confirmation.amount).replace(/\B(?=(\d{3})+(?!\d))/g,' ')+' so‘m · '+confirmation.period;}
  document.getElementById('thank-you-note').innerHTML='Ariza to‘lov yoki joy band qilinganini anglatmaydi.<br>Savolingiz bo‘lsa: <a href="tel:+998550557677">+998 55 055 76 77</a>';
 }
 

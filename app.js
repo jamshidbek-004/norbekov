@@ -19,12 +19,10 @@ function renderPlans(){
   plansElement.innerHTML=[2,3,0,1].map(index=>{
     const plan=plans[index];
     const metrics=plan.metrics?`<div class="plan-metrics">${plan.metrics.map(([value,label])=>`<div><strong>${value}</strong><span>${label}</span></div>`).join('')}</div>`:'';
-    const upgrade=plan.className==='premium'?`<div class="plan-upgrade"><span>STANDARTDAN +${money(plan.prices[period]-plans[1].prices[period])} SO‘M</span><p>Ko‘proq kitob, videoyozuvlarga uzoqroq kirish va 2-bosqich kursiga ham 50% chegirma.</p></div>`:plan.className==='vip'?'<div class="plan-upgrade"><span>INTENSIVDAN KEYIN HAM DAVOM ETING</span><p>1-, 2-, 3-bosqich kurslariga 50%. Mastersclub Uzbekistan’ning 6 oylik va yillik abonimentlariga 20% chegirma.</p></div>':'';
-    return `<article class="plan ${plan.className} ${plan.featured?'featured':''}"><div class="plan-top"><div><p class="plan-label">${plan.label}</p><h3>${plan.name}</h3></div><span class="plan-symbol" aria-hidden="true">${plan.className==='vip'?'✦':'✳'}</span></div><p class="plan-subtitle">${plan.subtitle}</p>${plan.description?`<p class="plan-description">${plan.description}</p>`:''}<p class="plan-price ${plan.prices[period]===null?'unknown':''}">${money(plan.prices[period])}</p><p class="plan-currency">${plan.prices[period]===null?'Narxni menejerdan bilib oling':'so‘m / '+periods[period]}</p>${upgrade}${metrics}<div class="plan-rule"></div><p class="plan-includes">${plan.featured?'SHUNINGDEK, TARIF TARKIBIDA':'TARIF TARKIBIDA'}</p><ul>${plan.features.map(feature=>`<li>${feature}</li>`).join('')}</ul><div class="gift"><span>✦ SIZ UCHUN SOVG‘A</span>Norbekov Premium botiga <strong>${plan.months} oylik obuna</strong></div><button class="button" data-plan="${index}" aria-label="${plan.name} tarifini tanlash">${plan.cta||plan.name+'ni tanlash'} <span aria-hidden="true">↗</span></button></article>`;
+    const upgrade=plan.className==='premium'?`<div class="plan-upgrade"><span>STANDARTDAN KO‘PROQ IMKONIYAT</span><p>Ko‘proq kitob, videoyozuvlarga uzoqroq kirish va 2-bosqich kursiga ham 50% chegirma.</p></div>`:plan.className==='vip'?'<div class="plan-upgrade"><span>INTENSIVDAN KEYIN HAM DAVOM ETING</span><p>1-, 2-, 3-bosqich kurslariga 50%. Mastersclub Uzbekistan’ning 6 oylik va yillik abonimentlariga 20% chegirma.</p></div>':'';
+    return `<article class="plan ${plan.className} ${plan.featured?'featured':''}"><div class="plan-top"><div><p class="plan-label">${plan.label}</p><h3>${plan.name}</h3></div><span class="plan-symbol" aria-hidden="true">${plan.className==='vip'?'✦':'✳'}</span></div><p class="plan-subtitle">${plan.subtitle}</p>${plan.description?`<p class="plan-description">${plan.description}</p>`:''}${upgrade}${metrics}<div class="plan-rule"></div><p class="plan-includes">${plan.featured?'SHUNINGDEK, TARIF TARKIBIDA':'TARIF TARKIBIDA'}</p><ul>${plan.features.map(feature=>`<li>${feature}</li>`).join('')}</ul><div class="gift"><span>✦ SIZ UCHUN SOVG‘A</span>Norbekov Premium botiga <strong>${plan.months} oylik obuna</strong></div><button class="button" data-plan="${index}" aria-label="${plan.name} tarifini tanlash">${plan.cta||plan.name+'ni tanlash'} <span aria-hidden="true">↗</span></button></article>`;
   }).join('');
   document.querySelectorAll('[data-period]').forEach(button=>{const active=Number(button.dataset.period)===period;button.classList.toggle('active',active);button.setAttribute('aria-pressed',String(active));});
-  const onlinePrice=plans[0].prices[period];
-  document.querySelector('.mobile-cta small').textContent=onlinePrice===null?'Onlayn narxi aniqlashtiriladi':money(onlinePrice)+' so‘mdan · '+periods[period];
 }
 renderPlans();
 document.querySelectorAll('[data-period]').forEach(button=>button.addEventListener('click',()=>{period=Number(button.dataset.period);renderPlans();}));
@@ -64,8 +62,6 @@ const planById=id=>plans.find(plan=>plan.className===id);
 function updateRegistrationPlan(){
  const plan=planById(registrationPlan.value);
  document.getElementById('selected-plan').textContent=plan.name;
- document.getElementById('contact-price').textContent=money(plan.prices[registrationPeriod])+' so‘m';
- document.getElementById('contact-period').textContent=periods[registrationPeriod]+', 2026';
  registrationDialog.dataset.plan=plan.className;
 }
 function startRegistration(opener,index=2){
